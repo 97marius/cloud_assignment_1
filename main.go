@@ -17,8 +17,8 @@ func main() {
 	}
 
 	http.HandleFunc("/", handler.DefaultHandler)
-	http.HandleFunc("/unisearcher/v1/uniinfo/", handler.HandleUniRequest)
-	http.HandleFunc("/unisearcher/v1/neighbourunis/", handler.HandleNabUniRequest)
+	http.HandleFunc("/unisearcher/v1/uniinfo/", handler.HandleGetRequestUni)
+	http.HandleFunc("/unisearcher/v1/neighbourunis/", handler.HandleGetRequestNeighboUni)
 
 	// Start server
 	log.Println("Starting server on port " + port + " ...")

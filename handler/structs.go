@@ -18,3 +18,11 @@ type NABUNI struct {
 
 	Borders []string `json:"borders"`
 }
+
+type NABUNIwtf struct {
+	Name struct {
+		Common string `json:"common"`
+	} `json:"name"`
+
+	Borders []string `json:"borders"`
+}

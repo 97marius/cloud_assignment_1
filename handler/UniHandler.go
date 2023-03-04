@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -10,10 +11,10 @@ import (
 /*
 Dedicated handler for POST requests
 */
-func HandleUniRequest(w http.ResponseWriter, r *http.Request) {
+func HandleGetRequestUni(w http.ResponseWriter, r *http.Request) {
 
-	parts := strings.Split(r.URL.Path, "/")
-	name := parts[4]
+	URLparts := strings.Split(r.URL.Path, "/")
+	name := URLparts[4]
 
 	url := "http://universities.hipolabs.com/search?name=" + name
 
@@ -50,8 +51,24 @@ func HandleUniRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Flat printing
 	fmt.Println(uni)
-	fmt.Fprintf(w, "%v", uni)
+	/*
+		fmt.Println("Received following request:")
+		fmt.Println(uni)
+		fmt.Fprintf(w, "%v", uni)
+	*/
+
+	// Pretty printing
+	output, err := json.MarshalIndent(uni, "", "  ")
+	if err != nil {
+		log.Println("Error during pretty printing of output: " + err.Error())
+		http.Error(w, "Error during pretty printing", http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Fprintf(w, "%v", string(output))
+	fmt.Fprintf(w, "\n\n")
 
 	// Return status code (good practice)
 	http.Error(w, "OK", http.StatusOK)
