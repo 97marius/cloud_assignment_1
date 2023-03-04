@@ -11,18 +11,14 @@ type NABUNI struct {
 	Name struct {
 		Common string `json:"common"`
 	} `json:"name"`
-
-	Language map[string]interface{} `json:"languages"`
-
+	Language   map[string]interface{} `json:"languages"`
 	GoogleMaps map[string]interface{} `json:"maps"`
-
-	Borders []string `json:"borders"`
+	Borders    []string               `json:"borders"`
 }
 
-type NABUNIwtf struct {
-	Name struct {
-		Common string `json:"common"`
-	} `json:"name"`
-
-	Borders []string `json:"borders"`
+type DIAGNOSTIC struct {
+	Universitiesapi string `json:"universitiesapi"`
+	Countriesapi    string `json:"countriesapi"`
+	Version         string `json:"version"`
+	Uptime          string `json:"uptime"`
 }

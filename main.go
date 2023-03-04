@@ -5,7 +5,10 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
+
+var StartTime time.Time
 
 func main() {
 
@@ -16,9 +19,12 @@ func main() {
 		port = "8080"
 	}
 
+	handler.StartTime = time.Now()
+
 	http.HandleFunc("/", handler.DefaultHandler)
 	http.HandleFunc("/unisearcher/v1/uniinfo/", handler.HandleGetRequestUni)
-	http.HandleFunc("/unisearcher/v1/neighbourunis/", handler.HandleGetRequestNeighboUni)
+	http.HandleFunc("/unisearcher/v1/neighbourunis/", handler.HandleGetRequestNeighborUni)
+	http.HandleFunc("/unisearcher/v1/diag/", handler.HandleGetRequestDiag)
 
 	// Start server
 	log.Println("Starting server on port " + port + " ...")

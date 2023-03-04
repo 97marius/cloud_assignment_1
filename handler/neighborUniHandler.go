@@ -11,7 +11,7 @@ import (
 /*
 Dedicated handler for POST requests
 */
-func HandleGetRequestNeighboUni(w http.ResponseWriter, r *http.Request) {
+func HandleGetRequestNeighborUni(w http.ResponseWriter, r *http.Request) {
 
 	URLparts := strings.Split(r.URL.Path, "/")
 	name := URLparts[4]
@@ -96,7 +96,15 @@ func HandleGetRequestNeighboUni(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if len(nabuni) > 0 {
+	if name == "" {
+		// Ensure interpretation as HTML by client (browser)
+		w.Header().Set("content-type", "text/html")
+
+		// Offer information for redirection to paths
+		output := "Please enter the name of a country in the url.</br> Examples paths <a href=\"" +
+			NEIGHBORUNI_PATH_NORWAY + "\">" + NEIGHBORUNI_PATH_NORWAY + "</a>, <a href=\"" + NEIGHBORUNI_PATH_INDIA + "\">" + NEIGHBORUNI_PATH_INDIA + "</a>, ...</br>"
+		fmt.Fprintf(w, output)
+	} else if len(nabuni) > 0 {
 		for i := range nabuni {
 
 			countryName := nabuni[i].Name.Common
@@ -159,8 +167,8 @@ func HandleGetRequestNeighboUni(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, "\n\n")
 		}
 	} else {
-		fmt.Fprintf(w, "Can't find borders for "+name)
-		fmt.Println("Can't find borders for " + name)
+		fmt.Fprintf(w, "Can't find border countries for "+name)
+		fmt.Println("Can't find border countries for " + name)
 	}
 
 	//fmt.Println(nabuni)
