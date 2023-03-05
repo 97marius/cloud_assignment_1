@@ -13,8 +13,12 @@ Dedicated handler for POST requests
 */
 func HandleGetRequestNeighborUni(w http.ResponseWriter, r *http.Request) {
 
-	URLparts := strings.Split(r.URL.Path, "/")
+	URLparts := strings.Split(r.URL.String(), "/")
 	name := URLparts[4]
+
+	// Making the URLparts atleast 5 in size. This prevents an error from occuring if the neighbour uni only had
+	// country and did not end with /
+	URLparts = append(URLparts, "")
 
 	url := ""
 	if name == "" {

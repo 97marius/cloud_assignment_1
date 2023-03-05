@@ -9,11 +9,11 @@ import (
 )
 
 /*
-Dedicated handler for POST requests
+Dedicated handler for GET requests
 */
 func HandleGetRequestUni(w http.ResponseWriter, r *http.Request) {
 
-	URLparts := strings.Split(r.URL.Path, "/")
+	URLparts := strings.Split(r.URL.String(), "/")
 	name := URLparts[4]
 
 	url := "http://universities.hipolabs.com/search?name=" + name
